@@ -1,6 +1,5 @@
 
-var fs = require('fs-extra');
-var fetch = require('node-fetch');
+var fs = require('fs');
 const path = require('path');
 
 let folders = `nasai
@@ -24,9 +23,9 @@ for (let dirname of folders) {
         let url = urlpattern + dirname + '/' + count + '.js'
 
         let res = await fetch(url)
-        if (res.status != 404) {
+        if (res.ok) {
         let text = await res.text()
-        fs.writeFile(path.join(__dirname, dirname, count + '.js'), text)
+        fs.writeFileSync(path.join(__dirname, dirname, count + '.js'), text)
         errorno=0
         }else{
 errorno++
